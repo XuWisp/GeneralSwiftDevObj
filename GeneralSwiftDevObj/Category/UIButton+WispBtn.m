@@ -46,7 +46,6 @@
     [btn setBackgroundImage:BNImg forState:(UIControlStateNormal)];
     [btn setBackgroundImage:BSImg forState:(UIControlStateSelected)];
     [btn setBackgroundColor:color];
-    btn.cs_acceptEventTime = 1;
     return btn;
 }
 
@@ -61,10 +60,10 @@
                                            SImg:nil
                                           BNImg:nil
                                           BSImg:nil
-                                          color:kOKBtnColor];
-    btn.layer.cornerRadius = btn.height/2;
-    btn.centerX = kScreenW/2;
-    btn.cs_acceptEventTime = 1;
+                                          color:nil];
+//    btn.layer.cornerRadius = btn.height/2;
+//    btn.centerX = kScreenW/2;
+//    btn.cs_acceptEventTime = 1;
     return btn;
 }
 
@@ -73,8 +72,8 @@
     UIButton *btn = [UIButton commonBtnWithType:(UIButtonTypeCustom)
                                           Frame:frame
                                            text:@"查看更多 >"
-                                         TColor:kCSMDetailTextColor
-                                           font:kCSMMainTextFont
+                                         TColor:nil
+                                           font:nil
                                            NImg:nil
                                            SImg:nil
                                           BNImg:nil

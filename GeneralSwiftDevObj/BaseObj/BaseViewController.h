@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MJRefresh/MJRefresh.h>
-#import "CSMRequestBase.h"
-#import "NSString+MD5.h"
+//#import <MJRefresh/MJRefresh.h>
 
 //左右导航按钮回调
 typedef void(^PassAction)(UIButton *button);
@@ -126,9 +124,9 @@ typedef void(^PassStr)(NSString *);
 - (UIView *)ittemRedViewWithRedDotValue:(NSString *)redDotValue;
 
 #pragma mark - MJRefresh
-- (MJRefreshNormalHeader *)setRefreshNormalHeaderParameter:(MJRefreshNormalHeader *)header;
-- (MJRefreshBackNormalFooter *)setRefreshBackNormalFooterParameter:(MJRefreshBackNormalFooter *)footer;
-- (MJRefreshAutoNormalFooter *)setRefreshAutoNormalFooterParameter:(MJRefreshAutoNormalFooter *)footer;
+//- (MJRefreshNormalHeader *)setRefreshNormalHeaderParameter:(MJRefreshNormalHeader *)header;
+//- (MJRefreshBackNormalFooter *)setRefreshBackNormalFooterParameter:(MJRefreshBackNormalFooter *)footer;
+//- (MJRefreshAutoNormalFooter *)setRefreshAutoNormalFooterParameter:(MJRefreshAutoNormalFooter *)footer;
 
 #pragma mark - network
 

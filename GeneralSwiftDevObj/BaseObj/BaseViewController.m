@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
+#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+
 @interface BaseViewController ()
 
 @end
@@ -16,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = kCSMBGWhiteColor;
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -44,8 +46,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    // 关闭提示框
-    [ProgressManager dismiss];
+    
 }
 
 - (void)dealloc {
@@ -72,13 +73,13 @@
 }
 
 - (void)setCSMTitle:(NSString *)title {
-    self.CSMTitleLab = [UILabel commonLabelWithFrame:CGRectMake(kScreenW/4, self.NavRect.origin.y + kImg(38), kScreenW/2, kImg(60))
-                                                 text:title
-                                                color:[UIColor blackColor]
-                                                 font:[UIFont boldSystemFontOfSize:kImg(60)]
-                                        textAlignment:(NSTextAlignmentCenter)];
-    [self.view addSubview:self.CSMTitleLab];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    self.CSMTitleLab = [UILabel commonLabelWithFrame:CGRectMake(kScreenW/4, self.NavRect.origin.y + kImg(38), kScreenW/2, kImg(60))
+//                                                 text:title
+//                                                color:[UIColor blackColor]
+//                                                 font:[UIFont boldSystemFontOfSize:kImg(60)]
+//                                        textAlignment:(NSTextAlignmentCenter)];
+//    [self.view addSubview:self.CSMTitleLab];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 /**
@@ -178,7 +179,6 @@
 
 - (void)pushWithBackBtnViewController:(BaseViewController *)vc {
     [self.navigationController pushViewController:vc animated:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:VCPushWithBackNoti object:nil];
 }
 
 #pragma mark 导航定制
@@ -226,15 +226,11 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = [UIColor clearColor];
-    btn.titleLabel.font = [UIFont systemFontOfSize:kImg(58)];
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitle:title forState:UIControlStateHighlighted];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    CGSize titleSize = [title ex_sizeWithFont:btn.titleLabel.font constrainedToSize:CGSizeMake(kScreenW, MAXFLOAT)];
-    float leight = titleSize.width;
-    [btn setFrame:CGRectMake(0, 0, leight, 30)];
     self.navigationItem.titleView = btn;
 }
 
@@ -271,10 +267,7 @@
     [btn setTitle:title forState:UIControlStateHighlighted];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-    CGSize titleSize = [title ex_sizeWithFont:btn.titleLabel.font constrainedToSize:CGSizeMake(kScreenW, MAXFLOAT)];
-    float leight = titleSize.width;
     if (icon) {
-        leight += icon.size.width;
         [btn setImage:icon forState:UIControlStateNormal];
         [btn setImage:icon forState:UIControlStateHighlighted];
         if (title.length == 0) {
@@ -286,10 +279,10 @@
     }
     if (title.length == 0) {
         //文字没有的话，点击区域+10
-        leight = leight + 10;
+//        leight = leight + 10;
     }
-    view.frame = CGRectMake(0, 0, leight, 30);
-    btn.frame = CGRectMake(-5, 0, leight, 30);
+//    view.frame = CGRectMake(0, 0, leight, 30);
+//    btn.frame = CGRectMake(-5, 0, leight, 30);
     [view addSubview:btn];
     
     item = [[UIBarButtonItem alloc] initWithCustomView:view];
@@ -343,11 +336,10 @@
     }
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitle:title forState:UIControlStateHighlighted];
-    [btn setTitleColor:kCSMLOGOBrownColor forState:UIControlStateNormal];
-    [btn setTitleColor:kCSMLOGOBrownColor forState:UIControlStateHighlighted];
-    CGSize titleSize = [title ex_sizeWithFont:btn.titleLabel.font constrainedToSize:CGSizeMake(kScreenW, MAXFLOAT)];
-    float leight = titleSize.width;
-    [btn setFrame:CGRectMake(0, 0, leight, 30)];
+//    [btn setTitleColor:kCSMLOGOBrownColor forState:UIControlStateNormal];
+//    [btn setTitleColor:kCSMLOGOBrownColor forState:UIControlStateHighlighted];
+//    CGSize titleSize = [title ex_sizeWithFont:btn.titleLabel.font constrainedToSize:CGSizeMake(kScreenW, MAXFLOAT)];
+//    float leight = titleSize.width;
     btn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
     item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     return item;
@@ -388,58 +380,58 @@
     return self.NavRect.origin.y + NavRectH;
 }
 
-- (UIButton *)backBtn {
-    if (!_backBtn) {
-        _backBtn = [UIButton commonBtnWithType:(UIButtonTypeCustom)
-                                         Frame:CGRectMake(kImgFit(10), self.NavRect.origin.y+kImgFit(5), kImg(120), kImg(120))
-                                          text:nil
-                                        TColor:nil
-                                          font:nil
-                                          NImg:[UIImage imageNamed:@"back_icon.png"]
-                                          SImg:nil
-                                         BNImg:nil
-                                         BSImg:nil
-                                         color:nil];
-        [_backBtn addTarget:self action:@selector(backAction:) forControlEvents:(UIControlEventTouchUpInside)];
-        _backBtn.imageEdgeInsets = UIEdgeInsetsMake(kImgFit(30), kImgFit(50), kImgFit(30), kImgFit(50));
-    }
-    return _backBtn;
-}
+//- (UIButton *)backBtn {
+//    if (!_backBtn) {
+//        _backBtn = [UIButton commonBtnWithType:(UIButtonTypeCustom)
+//                                         Frame:CGRectMake(kImgFit(10), self.NavRect.origin.y+kImgFit(5), kImg(120), kImg(120))
+//                                          text:nil
+//                                        TColor:nil
+//                                          font:nil
+//                                          NImg:[UIImage imageNamed:@"back_icon.png"]
+//                                          SImg:nil
+//                                         BNImg:nil
+//                                         BSImg:nil
+//                                         color:nil];
+//        [_backBtn addTarget:self action:@selector(backAction:) forControlEvents:(UIControlEventTouchUpInside)];
+//        _backBtn.imageEdgeInsets = UIEdgeInsetsMake(kImgFit(30), kImgFit(50), kImgFit(30), kImgFit(50));
+//    }
+//    return _backBtn;
+//}
 
 - (void)initBackBtnWithBG {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(kImgFit(38), self.NavRect.origin.y + kImg(32), kImg(120), kImg(120))];
-    view.backgroundColor = [UIColor whiteColor];
-    view.alpha = 0.5;
-    view.layer.cornerRadius = view.width/2;
-    self.backBtn.centerX = view.width/2;
-    self.backBtn.centerY = view.height/2;
-    [view addSubview:self.backBtn];
-    [self.view addSubview:view];
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(kImgFit(38), self.NavRect.origin.y + kImg(32), kImg(120), kImg(120))];
+//    view.backgroundColor = [UIColor whiteColor];
+//    view.alpha = 0.5;
+//    view.layer.cornerRadius = view.width/2;
+//    self.backBtn.centerX = view.width/2;
+//    self.backBtn.centerY = view.height/2;
+//    [view addSubview:self.backBtn];
+//    [self.view addSubview:view];
 }
 
-- (MJRefreshNormalHeader *)setRefreshNormalHeaderParameter:(MJRefreshNormalHeader *)header {
-    header.lastUpdatedTimeLabel.hidden = YES;
-    
-    [header setTitle:@"下拉可以刷新" forState:MJRefreshStateIdle];
-    [header setTitle:@"松开刷新" forState:MJRefreshStatePulling];
-    [header setTitle:@"正在刷新数据中..." forState:MJRefreshStateRefreshing];
-    return header;
-}
-
-- (MJRefreshBackNormalFooter *)setRefreshBackNormalFooterParameter:(MJRefreshBackNormalFooter *)footer {
-    [footer setTitle:NSLocalizedStringFromTable(@"MJRefreshBackFooterIdleText", @"MJRefresh",@"上拉可以加载更多") forState:MJRefreshStateIdle];
-    [footer setTitle:NSLocalizedStringFromTable(@"MJRefreshBackFooterPullingText", @"MJRefresh",@"松开立即加载更多") forState:MJRefreshStatePulling];
-    [footer setTitle:NSLocalizedStringFromTable(@"MJRefreshBackFooterRefreshingText", @"MJRefresh",@"正在加载更多的数据...") forState:MJRefreshStateRefreshing];
-    [footer setTitle:NSLocalizedStringFromTable(@"MJRefreshBackFooterNoMoreDataText", @"MJRefresh",@"已经全部加载完毕") forState:MJRefreshStateNoMoreData];
-    return footer;
-}
-
-- (MJRefreshAutoNormalFooter *)setRefreshAutoNormalFooterParameter:(MJRefreshAutoNormalFooter *)footer {
-    //[footer setTitle:NSLocalizedStringFromTable(@"MJRefreshAutoFooterIdleText", @"MJRefresh",@"点击或上拉加载更多") forState:MJRefreshStateIdle];
-    //[footer setTitle:NSLocalizedStringFromTable(@"MJRefreshAutoFooterRefreshingText", @"MJRefresh",@"正在加载更多的数据...") forState:MJRefreshStateRefreshing];
-    //[footer setTitle:NSLocalizedStringFromTable(@"MJRefreshAutoFooterNoMoreDataText", @"MJRefresh",@"已经全部加载完毕") forState:MJRefreshStateNoMoreData];
-    return footer;
-}
+//- (MJRefreshNormalHeader *)setRefreshNormalHeaderParameter:(MJRefreshNormalHeader *)header {
+//    header.lastUpdatedTimeLabel.hidden = YES;
+//
+//    [header setTitle:@"下拉可以刷新" forState:MJRefreshStateIdle];
+//    [header setTitle:@"松开刷新" forState:MJRefreshStatePulling];
+//    [header setTitle:@"正在刷新数据中..." forState:MJRefreshStateRefreshing];
+//    return header;
+//}
+//
+//- (MJRefreshBackNormalFooter *)setRefreshBackNormalFooterParameter:(MJRefreshBackNormalFooter *)footer {
+//    [footer setTitle:NSLocalizedStringFromTable(@"MJRefreshBackFooterIdleText", @"MJRefresh",@"上拉可以加载更多") forState:MJRefreshStateIdle];
+//    [footer setTitle:NSLocalizedStringFromTable(@"MJRefreshBackFooterPullingText", @"MJRefresh",@"松开立即加载更多") forState:MJRefreshStatePulling];
+//    [footer setTitle:NSLocalizedStringFromTable(@"MJRefreshBackFooterRefreshingText", @"MJRefresh",@"正在加载更多的数据...") forState:MJRefreshStateRefreshing];
+//    [footer setTitle:NSLocalizedStringFromTable(@"MJRefreshBackFooterNoMoreDataText", @"MJRefresh",@"已经全部加载完毕") forState:MJRefreshStateNoMoreData];
+//    return footer;
+//}
+//
+//- (MJRefreshAutoNormalFooter *)setRefreshAutoNormalFooterParameter:(MJRefreshAutoNormalFooter *)footer {
+//    //[footer setTitle:NSLocalizedStringFromTable(@"MJRefreshAutoFooterIdleText", @"MJRefresh",@"点击或上拉加载更多") forState:MJRefreshStateIdle];
+//    //[footer setTitle:NSLocalizedStringFromTable(@"MJRefreshAutoFooterRefreshingText", @"MJRefresh",@"正在加载更多的数据...") forState:MJRefreshStateRefreshing];
+//    //[footer setTitle:NSLocalizedStringFromTable(@"MJRefreshAutoFooterNoMoreDataText", @"MJRefresh",@"已经全部加载完毕") forState:MJRefreshStateNoMoreData];
+//    return footer;
+//}
 
 #pragma mark - network
 
