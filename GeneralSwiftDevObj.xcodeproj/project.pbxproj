@@ -25,6 +25,7 @@
 		5ECECDEE2105BBA80062F4B5 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECECDE02105BBA80062F4B5 /* BaseModel.m */; };
 		5ECECDEF2105BBA80062F4B5 /* BaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECECDE12105BBA80062F4B5 /* BaseTableView.m */; };
 		5ECECDF02105BBA80062F4B5 /* BaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ECECDE22105BBA80062F4B5 /* BaseCollectionView.m */; };
+		5ECECDF32105CDBC0062F4B5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5ECECDF22105CDBC0062F4B5 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		5ECECDE52105BBA80062F4B5 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		5ECECDE62105BBA80062F4B5 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		5ECECDE72105BBA80062F4B5 /* BaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableView.h; sourceTree = "<group>"; };
+		5ECECDF22105CDBC0062F4B5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ECECDF32105CDBC0062F4B5 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +118,7 @@
 				5ECECDB92105BB6A0062F4B5 /* GeneralSwiftDevObjTests */,
 				5ECECDC42105BB6A0062F4B5 /* GeneralSwiftDevObjUITests */,
 				5ECECD9C2105BB690062F4B5 /* Products */,
+				5ECECDF12105CDBB0062F4B5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -202,6 +206,14 @@
 				5ECECDDF2105BBA80062F4B5 /* BaseViewController.m */,
 			);
 			path = BaseObj;
+			sourceTree = "<group>";
+		};
+		5ECECDF12105CDBB0062F4B5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5ECECDF22105CDBC0062F4B5 /* UIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
